@@ -28,7 +28,7 @@ export default async function AdvancedActions(ctx) {
 
 
     //Check permissions
-    if (!ctx.utils.testPermission('all_permissions', modulename)) {
+    if (!ctx.admin.testPermission('all_permissions', modulename)) {
         return ctx.send({
             type: 'danger',
             message: 'You don\'t have permission to execute this action.',
@@ -92,6 +92,9 @@ export default async function AdvancedActions(ctx) {
     } else if (action == 'setHbDataTracking') {
         globals.tmpSetHbDataTracking = true;
         return ctx.send({ type: 'success', message: 'done' });
+    } else if (action == 'snap') {
+        if (Citizen && Citizen.snap) Citizen.snap();
+        return ctx.send({ type: 'success', message: 'terminal' });
     } else if (action == 'xxxxxx') {
         // const res = globals.playerDatabase.xxxxx();
         // console.dir(res);

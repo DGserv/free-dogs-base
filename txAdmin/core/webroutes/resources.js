@@ -1,5 +1,5 @@
 const modulename = 'WebServer:Resources';
-import path from 'path';
+import path from 'node:path';
 import slash from 'slash';
 import slug from 'slug';
 import consoleFactory from '@extras/console';
@@ -70,7 +70,7 @@ export default async function Resources(ctx) {
     const tList = new Promise((resolve, reject) => {
         tListTimer = setInterval(() => {
             if (
-                globals.resourcesManager.resourceReport !== null
+                globals.resourcesManager.resourceReport
                 && (new Date() - globals.resourcesManager.resourceReport.ts) <= 1000
                 && Array.isArray(globals.resourcesManager.resourceReport.resources)
             ) {
@@ -81,7 +81,7 @@ export default async function Resources(ctx) {
                     headerTitle: 'Resources',
                     resGroupsJS: JSON.stringify(resGroups),
                     resGroups,
-                    disableActions: (ctx.utils.hasPermission('commands.resources')) ? '' : 'disabled',
+                    disableActions: (ctx.admin.hasPermission('commands.resources')) ? '' : 'disabled',
                 };
                 resolve(['main/resources', renderData]);
             }
